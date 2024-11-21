@@ -1,7 +1,7 @@
 name: CI-CD Pipeline for MERN App
 
 on:
-    pull_request: # Trigger on pull requests targeting the main branch
+    pull_request:  # Trigger on pull requests targeting the main branch
         branches:
             - main
 
@@ -37,9 +37,9 @@ jobs:
                   cd server
                   npm test
 
-            - name: Merge pull request if tests pass
-              if: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == false }}
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  gh pr merge ${{ github.event.pull_request.number }} --squash --delete-branch
+            - name: Auto-merge pull request if tests pass
+              uses: peter-evans/create-pull-request@v5
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  commit-message: "Auto-merge changes after successful tests"
+                  branch: main
