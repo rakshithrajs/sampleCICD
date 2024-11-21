@@ -29,8 +29,10 @@ jobs:
                   npm install
 
             - name: Run tests
+              env:
+                  CI: true
+                  NODE_ENV: test
+                  dbURL: ${{secrets.DBURL}}
               run: |
-                  touch .env
-                  echo dbURL=${{secrets.dbURL}} >> .env
                   cd server
                   npm test

@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
+console.log(process.env.dbURL);
+
 process.env.NODE_ENV = "test";
 
 beforeAll(async () => {
