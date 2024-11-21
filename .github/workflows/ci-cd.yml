@@ -13,7 +13,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
               with:
-                  fetch-depth: 0  # Ensure full branch history is fetched
+                  fetch-depth: 0 # Ensure full branch history is fetched
 
             - name: Set up Node.js
               uses: actions/setup-node@v4
@@ -38,11 +38,3 @@ jobs:
               run: |
                   cd server
                   npm test
-
-            - name: Auto-merge pull request if tests pass
-              uses: peter-evans/create-pull-request@v5
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  base: main  # Specify the base branch
-                  commit-message: "Auto-merge changes after successful tests"
-                  branch: main
