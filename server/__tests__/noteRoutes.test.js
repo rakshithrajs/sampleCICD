@@ -78,6 +78,14 @@ describe("Notes API", () => {
             "The note was successfully deleted!"
         );
     });
+
+    it("all notes deleted", async () => {
+        const res = await request(app).delete("/deleteAll");
+        expect(res.body).toHaveProperty(
+            "msg",
+            "All notes were successfully deleted!"
+        );
+    });
 });
 
 describe("Message API", () => {
