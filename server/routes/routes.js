@@ -15,6 +15,7 @@ router.post("/addNote", noteController.add_note);
 router.get("/noteDetails/:id", noteController.get_one_note);
 router.patch("/updateNote/:id", noteController.update_note);
 router.delete("/deleteNote/:id", noteController.delete_note);
+router.delete("/deleteAll", noteController.delete_all_notes);
 
 // Exports
 module.exports = router;
