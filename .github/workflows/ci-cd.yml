@@ -11,15 +11,17 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
-        node-version: '14'
+        node-version: 'latest'
 
     - name: Install backend dependencies
-      run: npm install
+      run: |
+            cd server
+            npm install
 
     - name: Install frontend dependencies
       run: |
@@ -28,14 +30,3 @@ jobs:
 
     - name: Run tests
       run: npm test
-
-    - name: Build frontend
-      run: |
-        cd client
-        npm run build
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: build
-        path: ./client/build
