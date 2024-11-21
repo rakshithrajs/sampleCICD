@@ -1,7 +1,7 @@
 name: CI-CD Pipeline for MERN App
 
 on:
-    push:
+    pull_request: # Trigger on pull requests targeting the main branch
         branches:
             - main
 
@@ -32,7 +32,14 @@ jobs:
               env:
                   CI: true
                   NODE_ENV: test
-                  dbURL: ${{secrets.DBURL}}
+                  dbURL: ${{ secrets.DBURL }}
               run: |
                   cd server
                   npm test
+
+            - name: Merge pull request if tests pass
+              if: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == false }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh pr merge ${{ github.event.pull_request.number }} --squash --delete-branch
